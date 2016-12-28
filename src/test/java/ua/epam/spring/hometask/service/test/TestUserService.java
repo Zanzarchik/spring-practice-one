@@ -84,20 +84,4 @@ public class TestUserService {
         assertNotNull("Try to find by id an ", user);
         assertEquals("Try to find by id an ", persistenceUser.getId(), user.getId());
     }
-
-    @Test
-    public void testRegisterUser() {
-
-        userService.registerUser(persistenceUser);
-
-        assertNotNull(String.format("Try to register an %s", persistenceUser), userService.getAllRegisteredUsers().get(persistenceUser.getId()));
-    }
-
-    @Test
-    public void testIsRegisteredUser() {
-
-        userService.registerUser(persistenceUser);
-
-        assertTrue("Check that an user was registered", userService.isRegisteredUser(persistenceUser));
-    }
 }

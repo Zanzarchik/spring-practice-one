@@ -10,6 +10,7 @@
 
     <bean id="eventService" class="ua.epam.spring.hometask.service.impl.CustomEventService"/>
     <bean id="userService" class="ua.epam.spring.hometask.service.impl.CustomUserService"/>
+    <bean id="authService" class="ua.epam.spring.hometask.service.impl.BasicAuthService"/>
     <bean id="bookingService" class="ua.epam.spring.hometask.service.impl.CustomBookingService">
         <constructor-arg>
             <map>
@@ -21,9 +22,9 @@
     </bean>
     <bean id="auditoriumService" class="ua.epam.spring.hometask.service.impl.CustomAuditoriumService">
         <constructor-arg>
-            <list>
+            <set>
                 <ref bean="testAuditorium"/>
-            </list>
+            </set>
         </constructor-arg>
     </bean>
     <bean id="discountService" class="ua.epam.spring.hometask.service.impl.CustomDiscountService">

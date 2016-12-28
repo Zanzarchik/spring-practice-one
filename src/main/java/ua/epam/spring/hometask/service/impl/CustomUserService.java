@@ -16,7 +16,6 @@ import ua.epam.spring.hometask.service.api.UserService;
 public class CustomUserService implements UserService {
 
     private Map<Long, User> userStorage = new HashMap<>();
-    private Map<Long, User> registeredUsers = new HashMap<>();
 
     public void setUserStorage(Map<Long, User> userStorage) {
         this.userStorage = userStorage;
@@ -53,20 +52,5 @@ public class CustomUserService implements UserService {
     public Collection<User> getAll() {
         List<User> users = new ArrayList<>(userStorage.values());
         return users;
-    }
-
-    @Override
-    public boolean isRegisteredUser(User user) {
-        return registeredUsers.containsKey(user.getId());
-    }
-
-    @Override
-    public User registerUser(User user) {
-        registeredUsers.put(user.getId(), user);
-        return user;
-    }
-
-    public Map<Long, User> getAllRegisteredUsers() {
-        return registeredUsers;
     }
 }

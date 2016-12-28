@@ -17,13 +17,14 @@ import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.api.AuthService;
 import ua.epam.spring.hometask.service.api.BookingService;
 import ua.epam.spring.hometask.service.api.DiscountService;
 import ua.epam.spring.hometask.service.api.UserService;
 
 public class CustomBookingService implements BookingService {
 
-    private UserService userService;
+    private AuthService authService;
     private DiscountService discountService;
     private Map<Long, Set<Ticket>> tickets = new HashMap<>();
     private Map<EventRating, Double> ratingIndex = new HashMap<>();
@@ -33,8 +34,8 @@ public class CustomBookingService implements BookingService {
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserService(AuthService authService) {
+        this.authService = authService;
     }
 
     @Autowired
@@ -67,7 +68,7 @@ public class CustomBookingService implements BookingService {
                 .map(Ticket::getUser)
                 .findFirst().orElseThrow(() -> new IllegalArgumentException("User was not set for ticket"));
 
-        if (userService.isRegisteredUser(user)) {
+        if (authService.isRegisteredUser(user)) {
             this.tickets.put(user.getId(), tickets);
         }
     }

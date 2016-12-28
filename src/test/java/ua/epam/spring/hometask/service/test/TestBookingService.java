@@ -26,8 +26,8 @@ import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.api.AuthService;
 import ua.epam.spring.hometask.service.api.DiscountService;
-import ua.epam.spring.hometask.service.api.UserService;
 import ua.epam.spring.hometask.service.impl.CustomBookingService;
 
 import static org.junit.Assert.assertEquals;
@@ -48,7 +48,7 @@ public class TestBookingService {
     private CustomBookingService bookingService;
 
     @Mock
-    private UserService userService;
+    private AuthService authService;
     @Mock
     private DiscountService discountService;
 
@@ -72,8 +72,8 @@ public class TestBookingService {
     public void testBookTicketsForRegisteredUser() {
 
         User user = users.get("registeredUser");
-         NavigableSet<Ticket> tickets = createTickets(user, 1);
-        when(userService.isRegisteredUser(user)).thenReturn(true);
+        NavigableSet<Ticket> tickets = createTickets(user, 1);
+        when(authService.isRegisteredUser(user)).thenReturn(true);
 
         bookingService.bookTickets(tickets);
 
@@ -85,7 +85,7 @@ public class TestBookingService {
 
         User user = users.get("anonymousUser");
         NavigableSet<Ticket> tickets = createTickets(user, 1);
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         bookingService.bookTickets(tickets);
 
@@ -97,7 +97,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.LOW);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(5L);
@@ -115,7 +115,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.LOW);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(1L);
@@ -134,7 +134,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.LOW);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(1L);
@@ -152,7 +152,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.LOW);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         bookingService.getTicketsPrice(testEvent, airData, user, seats, auditorium);
@@ -163,7 +163,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.LOW);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(5L);
@@ -183,7 +183,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.HIGH);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(5L);
@@ -202,7 +202,7 @@ public class TestBookingService {
 
         testEvent.setRating(EventRating.HIGH);
         User user = users.get("anonymousUser");
-        when(userService.isRegisteredUser(user)).thenReturn(false);
+        when(authService.isRegisteredUser(user)).thenReturn(false);
 
         Set<Long> seats = new HashSet<>();
         seats.add(5L);
