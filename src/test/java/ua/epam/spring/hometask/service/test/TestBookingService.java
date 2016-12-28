@@ -72,7 +72,7 @@ public class TestBookingService {
     public void testBookTicketsForRegisteredUser() {
 
         User user = users.get("registeredUser");
-        NavigableSet<Ticket> tickets = createTickets(user, 1);
+         NavigableSet<Ticket> tickets = createTickets(user, 1);
         when(userService.isRegisteredUser(user)).thenReturn(true);
 
         bookingService.bookTickets(tickets);

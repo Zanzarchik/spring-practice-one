@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="eventService" class="ua.epam.spring.hometask.service.impl.CustomEventService"/>
+    <bean id="userService" class="ua.epam.spring.hometask.service.impl.CustomUserService"/>
+    <bean id="bookingService" class="ua.epam.spring.hometask.service.impl.CustomBookingService">
+        <constructor-arg>
+            <map>
+                <entry key="LOW" value="1"/>
+                <entry key="MID" value="1.5"/>
+                <entry key="HIGH" value="2"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="auditoriumService" class="ua.epam.spring.hometask.service.impl.CustomAuditoriumService">
+        <constructor-arg>
+            <list>
+                <ref bean="auditorium"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="discountService" class="ua.epam.spring.hometask.service.impl.CustomDiscountService">
+        <property name="discountStrategies">
+            <list>
+                <ref bean="birthdayDiscount"/>
+                <ref bean="everyNTicketsDiscount"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="auditorium" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="auditorium"/>
+    </bean>
+
+    <bean id="birthdayDiscount" class="ua.epam.spring.hometask.service.impl.discount.BirthdayDiscountStrategy">
+        <constructor-arg index="0" value="5"/>
+        <constructor-arg index="1" value="5"/>
+    </bean>
+
+    <bean id="everyNTicketsDiscount" class="ua.epam.spring.hometask.service.impl.discount.EveryNTicketsDiscountStrategy">
+        <constructor-arg index="0" value="10"/>
+        <constructor-arg index="1" value="50"/>
+    </bean>
+
+</beans>
